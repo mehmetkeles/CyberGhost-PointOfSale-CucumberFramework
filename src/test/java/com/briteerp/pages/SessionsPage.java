@@ -26,5 +26,7 @@ public class SessionsPage extends BasePage {
 
         return element;
 
+//Comment
+
     }
 }
