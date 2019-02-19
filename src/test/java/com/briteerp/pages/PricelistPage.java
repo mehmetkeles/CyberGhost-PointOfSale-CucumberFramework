@@ -48,5 +48,5 @@ public class PricelistPage extends BasePage {
         WebElement PricelistNameCheckBox = PriceListNameCheckBoxes.get(rnd);
         return PricelistNameCheckBox;
     }
-    //keles
+
 }
