@@ -25,5 +25,6 @@ public class SessionsPage extends BasePage {
         WebElement element = Driver.getDriver().findElement(By.xpath(xpath));
 
         return element;
+
     }
 }
