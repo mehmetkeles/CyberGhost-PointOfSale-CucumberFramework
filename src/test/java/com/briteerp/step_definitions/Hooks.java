@@ -12,7 +12,7 @@ import com.briteerp.utilities.Driver;
 
 import java.util.concurrent.TimeUnit;
 
-public class Hooks {
+public class Hooks extends UiCommon{
 
     @Before(order = 2)
     public void setUp() {
@@ -37,6 +37,7 @@ public class Hooks {
     public void setUpTeacher() {
         System.out.println("Set up teacher test");
     }
+
 }
 
 

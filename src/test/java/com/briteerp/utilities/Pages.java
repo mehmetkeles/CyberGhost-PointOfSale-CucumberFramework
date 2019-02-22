@@ -2,39 +2,49 @@ package com.briteerp.utilities;
 
 import com.briteerp.pages.*;
 
-public class Pages {
-    private static HomePage homePage;
-    private static LoginPage loginPage;
-    private static MainPage mainPage;
-    private static PointOfSalePage pointOfSalePage;
 
+public class Pages {
+    private HomePage homePage;
+    private LoginPage loginPage;
+    private MainPage mainPage;
+    private PointOfSalePage pointOfSalePage;
 
 
     private DashboardPage dashboardPage;
     private OrdersPage ordersPage;
-    private static ProductsPage productsPage;
+    private ProductsPage productsPage;
     private PricelistPage pricelistPage;
     private SessionsPage sessionsPage;
     private LocalhostPage localhostPage;
 
 
-
-    public static HomePage home() {
-        return new HomePage();
+    public HomePage home() {
+        if (homePage == null) {
+            homePage = new HomePage();
+        }
+        return homePage;
     }
 
-    public static LoginPage login() {
-        return new LoginPage();
+    public LoginPage login() {
+        if (loginPage == null) {
+            loginPage = new LoginPage();
+        }
+        return loginPage;
     }
 
-    public static MainPage main() {
-        return new MainPage();
+    public MainPage main() {
+        if (mainPage == null) {
+            mainPage = new MainPage();
+        }
+        return mainPage;
     }
 
-    public static PointOfSalePage pointOfSale() {
-            return  new PointOfSalePage();
+    public PointOfSalePage pointOfSale() {
+        if (pointOfSalePage == null) {
+            pointOfSalePage = new PointOfSalePage();
+        }
+        return pointOfSalePage;
     }
-
 
     public DashboardPage dashboard() {
         if (dashboardPage == null) {
@@ -50,8 +60,11 @@ public class Pages {
         return ordersPage;
     }
 
-    public static ProductsPage products() {
-         return  new ProductsPage();
+    public ProductsPage products() {
+        if (productsPage == null) {
+            productsPage = new ProductsPage();
+        }
+        return productsPage;
     }
 
     public PricelistPage pricelist() {
@@ -74,5 +87,4 @@ public class Pages {
         }
         return localhostPage;
     }
-
 }

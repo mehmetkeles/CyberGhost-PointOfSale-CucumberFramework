@@ -22,4 +22,18 @@ Feature: login functionality
     Given user is already on the login page
     When user logs in as manager
     Then homepage should be displayed
-    
+
+  Scenario: user is logged in and on PointOfSale page
+    Given user is already on the login page
+    And user logs in as user
+    And user clicks on PointofSale link
+    Then PointOfSale page should be displayed
+
+  Scenario: user is at the Point of Sale page
+    When user is on the Point of Sale page
+    Then PointOfSale page should be displayed
+
+  @manager
+  Scenario:  manager is at the Point of Sale page
+    When manager is on the Point of Sale page
+    Then PointOfSale page should be displayed

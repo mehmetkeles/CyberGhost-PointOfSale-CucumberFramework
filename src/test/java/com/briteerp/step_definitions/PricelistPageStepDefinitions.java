@@ -6,35 +6,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 
-public class PricelistPageStepDefinitions {
-    Pages pages = new Pages();
-    protected final int timeOutInSec = Integer.parseInt(ConfigurationReader.getProperty("timeOutInSec"));
-
-
-    public void getMeToPointOfSalesAs(String accessLevel) {
-        pages.home().open();
-
-        pages.home().briteErpDemoLink.click();
-
-        if (accessLevel.equals("user"))
-            pages.login().login(ConfigurationReader.getProperty("user-username"),
-                    ConfigurationReader.getProperty("user-password"));
-        else if (accessLevel.equals("manager"))
-            pages.login().login(ConfigurationReader.getProperty("manager-username"),
-                    ConfigurationReader.getProperty("manager-password"));
-        else {
-            System.out.println("Invalid credentials: Please enter either 'user' or 'manager' ");
-        }
-
-        BrowserUtils.waitForClickablility(pages.main().pointOfSaleLink, timeOutInSec);
-        pages.main().pointOfSaleLink.click();
-
-    }
-
-    @Given("user is on the Point of Sale page")
-    public void user_is_on_the_Point_of_Sale_page() {
-        getMeToPointOfSalesAs(ConfigurationReader.getProperty("accessLevel"));
-    }
+public class PricelistPageStepDefinitions extends UiCommon{
 
     @When("user clicks on the Pricelist link")
     public void user_clicks_on_the_Pricelist_link() {
