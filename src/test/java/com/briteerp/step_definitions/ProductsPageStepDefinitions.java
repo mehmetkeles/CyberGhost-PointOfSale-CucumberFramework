@@ -14,208 +14,196 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-public class ProductsPageStepDefinitions {
-
-    static int timeOutInSec = Integer.parseInt(ConfigurationReader.getProperty("timeOutInSec"));
-
-    private String productName = null, salesPrice = null , noteToAdd = null;
+public class ProductsPageStepDefinitions extends  UiCommon {
 
 
-    @When("user clicks on PointofSale link")
-    public void user_clicks_on_PointofSale_link() {
-        BrowserUtils.waitForClickablility(Pages.main().pointOfSaleLink, timeOutInSec);
-        Pages.main().pointOfSaleLink.click();
-    }
-
-    @Then("PointOfSale page should be displayed")
-    public void pointofsale_page_should_be_displayed() {
-        BrowserUtils.waitUntilTextToBePresentInElement(Pages.pointOfSale().tabTitle,
-                ApplicationConstants.POINTOFSALE_PAGE_HEADER, timeOutInSec);
-        String title = Driver.getDriver().getTitle();
-//        System.out.println("title = " + title);
-        Assert.assertEquals(title, ApplicationConstants.POINTOFSALE_PAGE_TITLE);
-
-    }
-
+    private String productName = null,
+                   salesPrice = null,
+                   noteToAdd = null;
 
 
     @When("user clicks on Products link")
     public void user_clicks_on_Products_link() {
-        WebElement element = Pages.pointOfSale().productsLink;
+        WebElement element = pages.pointOfSale().productsLink;
         BrowserUtils.waitForClickablility(element, timeOutInSec);
         element.click();
-        BrowserUtils.waitUntilTextToBePresentInElement(Pages.products().tabTitle,ApplicationConstants.PRODUCTS_PAGE_HEADER, timeOutInSec);
-//        Pages.pointOfSale().productsLink.click();
+        BrowserUtils.waitUntilTextToBePresentInElement(pages.products().tabTitle,ApplicationConstants.PRODUCTS_PAGE_HEADER, timeOutInSec);
+        System.out.println("User clicks on the Products link");
     }
 
     @Then("Products page should be displayed")
     public void products_page_should_be_displayed() {
-        BrowserUtils.waitUntilTextToBePresentInElement(Pages.products().tabTitle,
-                ApplicationConstants.PRODUCTS_PAGE_HEADER,timeOutInSec);
-
-//        System.out.println("control " + Pages.products().tabTitle.getText());
-        Assert.assertEquals(Pages.products().tabTitle.getText().trim(),
-                ApplicationConstants.PRODUCTS_PAGE_HEADER);
-
+        BrowserUtils.waitUntilTextToBePresentInElement(pages.products().tabTitle,
+                                                       ApplicationConstants.PRODUCTS_PAGE_HEADER,timeOutInSec);
+        Assert.assertEquals(pages.products().tabTitle.getText().trim(),
+                            ApplicationConstants.PRODUCTS_PAGE_HEADER);
+        System.out.println("Products page is displayed");
     }
 
     @When("user selects a product")
     public void user_selects_a_product() {
-        productName = Pages.products().selectAnyProduct();
-        System.out.println("productName = " + productName);
+        productName = pages.products().selectAnyProduct();
+        System.out.println("User selects " + productName);
     }
 
     @Then("user should see the name and sales price of the product")
     public void user_should_see_the_name_and_sales_price_of_the_product() {
-        salesPrice = Pages.products().getPrice(productName);
-        System.out.println("productName = " + productName);
+        salesPrice = pages.products().getPrice(productName);
         Assert.assertFalse(productName.isEmpty() && salesPrice.isEmpty() );
+        System.out.println("User checks the name and sales price of " + productName);
     }
 
     @When("user selects a product with a thumbnail picture")
     public void user_selects_a_product_with_a_thumbnail_picture() {
         boolean hasThumbnailPic = false;
         while (!hasThumbnailPic){
-            productName = Pages.products().selectAnyProduct();
-            hasThumbnailPic = Pages.products().hasThumbnailPicture(productName);
+            productName = pages.products().selectAnyProduct();
+            hasThumbnailPic = pages.products().hasThumbnailPicture(productName);
         }
 
-        System.out.println("Product with a thumbnail picture: " + productName);
+        System.out.println("User selects a product with a thumbnail picture: " + productName);
     }
 
 
     @Then("user clicks on the product")
     public void user_clicks_on_the_product() {
-        Pages.products().selectProduct(productName).click();
-        System.out.println(productName + " is clicked");
+        pages.products().selectProduct(productName).click();
+        System.out.println("User clicks on "+ productName );
     }
 
     @Then("user should be able to see the picture of the product")
     public void user_should_be_able_to_see_the_picture_of_the_product() {
-        BrowserUtils.waitForVisibility(Pages.products().detailsMediumImg, timeOutInSec);
-        boolean flag = Pages.products().detailsMediumImg.isDisplayed();
-        System.out.println("Verified that the prodcut has picture: " + flag);
+        BrowserUtils.waitForVisibility(pages.products().detailsMediumImg, timeOutInSec);
+        boolean flag = pages.products().detailsMediumImg.isDisplayed();
         Assert.assertTrue(flag);
+        System.out.println("User verifies that the product has picture: " + flag);
     }
 
     @When("user selects a product and remembers its price")
     public void user_selects_a_product_and_remembers_its_price() {
-        productName = Pages.products().selectAnyProduct();
-        salesPrice = Pages.products().getPrice(productName);
-        System.out.println("Selected product deatils: " +productName + salesPrice );
+        productName = pages.products().selectAnyProduct();
+        salesPrice = pages.products().getPrice(productName);
+        System.out.println("User selects a product and its price: " + productName + salesPrice );
     }
 
     @Then("user should be able to see the same price")
     public void user_should_be_able_to_see_the_same_price() {
-        String price = Pages.products().detailsGenInfSalesPrice.getText().trim();
-        System.out.println("price = " + price);
+        String price = pages.products().detailsGenInfSalesPrice.getText().trim();
         Assert.assertEquals(price, salesPrice);
-        System.out.println(salesPrice + "  is verified");
+        System.out.println("User confirms that product has the same price: " + salesPrice );
     }
 
     @Then("user types the name of the product into search box and hits ENTER")
     public void user_types_the_name_of_the_product_into_search_box_and_hits_ENTER() {
-        Pages.products().searchInput.sendKeys(productName+ Keys.ENTER);
+        pages.products().searchInput.sendKeys(productName+ Keys.ENTER);
+        System.out.println("User searched teh product " + productName);
     }
 
     @Then("user should be able to see the product on the page")
     public void user_should_be_able_to_see_the_product_on_the_page() {
-        BrowserUtils.hover(Pages.products().selectProduct(productName));
-        Assert.assertTrue(Pages.products().products.size() > 0);
+        BrowserUtils.hover(pages.products().selectProduct(productName));
+        Assert.assertTrue(pages.products().products.size() > 0);
+        System.out.println("User sees the product on the page" );
     }
 
     @Then("user clicks on Log note link")
     public void user_clicks_on_Log_note_link() {
-        BrowserUtils.waitForClickablility(Pages.products().detailsLogNoteTab, timeOutInSec);
-        Pages.products().detailsLogNoteTab.click();
-        System.out.println("Clicked the Log note");
+        BrowserUtils.waitForClickablility(pages.products().detailsLogNoteTab, timeOutInSec);
+        pages.products().detailsLogNoteTab.click();
+        System.out.println("User clicks on Log note");
     }
 
     @Then("user writes some notes and clicks on Log button")
     public void user_writes_some_notes_and_clicks_on_Log_button() {
-        BrowserUtils.waitForVisibility(Pages.products().detailsLogNoteLogBtn, timeOutInSec);
+        BrowserUtils.waitForVisibility(pages.products().detailsLogNoteLogBtn, timeOutInSec);
         noteToAdd = "CyberGhost team member updated at " + new Date().toString();
-        Pages.products().detailsLogNoteMessage.sendKeys(noteToAdd);
-        Pages.products().detailsLogNoteLogBtn.click();
-        System.out.println("Note is written: " + noteToAdd);
+        pages.products().detailsLogNoteMessage.sendKeys(noteToAdd);
+        pages.products().detailsLogNoteLogBtn.click();
+        System.out.println("User puts the notes: " + noteToAdd);
     }
 
     @Then("user should be able to see the note on the page")
     public void user_should_be_able_to_see_the_note_on_the_page() {
-//        BrowserUtils.waitForClickablility(Pages.products().detailsLogNoteTab, timeOutInSec);
         BrowserUtils.wait(3);
-        String submittedNotes = BrowserUtils.getElementsText(Pages.products().detailsSubmittedNoteList).toString();
-        System.out.println("submittedNotes = " + submittedNotes);
-        System.out.println("noteToAdd : " + noteToAdd);
+        String submittedNotes = BrowserUtils.getElementsText(pages.products().detailsSubmittedNoteList).toString();
         Assert.assertTrue(submittedNotes.contains(noteToAdd));
+        System.out.println("User checks the " + noteToAdd + " in the " + submittedNotes );
     }
 
     @Then("user should be able to see that cost is less than sales price")
     public void user_should_be_able_to_see_that_cost_is_less_than_sales_price() {
-        String priceStr = Pages.products().detailsGenInfSalesPrice.getText().trim().substring(1)
-                .trim().replace(",", "");
+        String priceStr = pages.products()
+                               .detailsGenInfSalesPrice.getText().trim().substring(1)
+                               .trim().replace(",", "");
         double price = Double.parseDouble(priceStr);
 
-        String costStr = Pages.products().detailsGenInfCost.getText().trim().substring(1)
-                .trim().replace(",", "");
+        String costStr = pages.products()
+                              .detailsGenInfCost.getText().trim().substring(1)
+                              .trim().replace(",", "");
         double cost = Double.parseDouble(costStr);
 
         Assert.assertTrue(price > cost);
+
+        System.out.println("User checks the cost of the product is more than sales price");
     }
 
     @Then("user should be able to see the name of the product on the page")
     public void user_should_be_able_to_see_the_name_of_the_product_on_the_page() {
-        BrowserUtils.waitForVisibility(Pages.products().detailsGenInfSalesPrice, timeOutInSec);
-        String productNameAtTheTop = Pages.products().detailsProductNameAtTheTop.getText().trim();
+        BrowserUtils.waitForVisibility(pages.products().detailsGenInfSalesPrice, timeOutInSec);
+        String productNameAtTheTop = pages.products().detailsProductNameAtTheTop.getText().trim();
         Assert.assertTrue(productNameAtTheTop.contains(productName));
+        System.out.println("User confirms that the product listing has the " + productName);
     }
 
 
     @Then("user clicks the edit button")
     public void user_clicks_the_edit_button() {
-        Pages.products().detailsEditBtn.click();
+        pages.products().detailsEditBtn.click();
+        System.out.println("User clicks on the product's edit button");
     }
 
     @Then("user can change the sales price and clicks the save button")
     public void user_can_change_the_sales_price_and_clicks_the_save_button() {
-        WebElement element = Pages.products().detailsEditSalesPriceInput;
-        String priceStr = element.getAttribute("value").replace(",", "").replace(",", "");
+        WebElement element = pages.products().detailsEditSalesPriceInput;
+
+        String priceStr = element.getAttribute("value")
+                                 .replace(",", "")
+                                 .replace(",", "");
+
         element.clear();
 
         double price = Double.parseDouble(priceStr);
         String newPriceStr = "" + (price + 1);
 
         element.sendKeys(newPriceStr);
+
         BrowserUtils.waitUntilTextToBePresentInElementValue(element, newPriceStr, timeOutInSec);
-
         salesPrice = newPriceStr;
+        pages.products().detailsSaveBtn.click();
 
-        Pages.products().detailsSaveBtn.click();
-
+        System.out.println("User changes the sales button and saves it ");
     }
 
     @Then("user should be able to see the update sales price")
     public void user_should_be_able_to_see_the_update_sales_price() {
-        BrowserUtils.waitForVisibility(Pages.products().detailsGenInfSalesPrice, timeOutInSec);
-        String actualValue = Pages.products().detailsGenInfSalesPrice.getText().trim().substring(1).trim();
+        BrowserUtils.waitForVisibility(pages.products().detailsGenInfSalesPrice, timeOutInSec);
+        String actualValue = pages.products().detailsGenInfSalesPrice.getText().trim().substring(1).trim();
         Assert.assertEquals(Double.parseDouble(actualValue), Double.parseDouble(salesPrice), 0.001);
-
+        System.out.println("User chekcs the updated sales price");
     }
 
 
     @Then("user click on {string}")
     public void user_click_on(String product_name) {
         this.productName = product_name;
-        Pages.products().selectProduct(productName).click();
-        BrowserUtils.waitUntilTextToBePresentInElement(Pages.products().detailsProductNameLabel, productName, timeOutInSec);
-        System.out.println(productName + " is clicked");
+        pages.products().selectProduct(productName).click();
+        BrowserUtils.waitUntilTextToBePresentInElement(pages.products().detailsProductNameLabel, productName, timeOutInSec);
+        System.out.println("User clicks on " + productName );
     }
 
     @Then("page should display details for the product")
     public void page_should_display_details_for_the_product() {
-        System.out.println(productName + " details will be displayed ");
         String fileName ="./src/test/resources/products.xlsx";
-//                "D:\\CyberTek\\Courses\\Selenium Test Automation\\CyberGhost-PointOfSale-BDD\\src\\test\\resources\\products.xlsx";
         String sheetName = "details";
         ExcelUtil productData = new ExcelUtil(fileName, sheetName);
 
@@ -223,32 +211,26 @@ public class ProductsPageStepDefinitions {
 
 
         for (Map<String, String> product : productMapList){
-//            System.out.println("product = " + product);
-
             if ( productName.equalsIgnoreCase( product.get("product_name").trim() ) ){
 
-                String actualSalesPrice = Pages.products().detailsGenInfSalesPrice.getText()
-                        .trim().substring(1).trim();
-
-//                System.out.println("actualSalesPrice = " + actualSalesPrice);
+                String actualSalesPrice = pages.products()
+                                               .detailsGenInfSalesPrice.getText()
+                                               .trim().substring(1).trim();
                 String expectedSalesPrice = product.get("sales_price").trim();
-//                System.out.println("expectedSalesPrice = " + expectedSalesPrice);
                 Assert.assertEquals(Double.parseDouble(expectedSalesPrice), Double.parseDouble(actualSalesPrice), 0.001);
 
 
-                String actualCost = Pages.products().detailsGenInfCost.getText().trim().substring(1).trim();
-//                System.out.println("actualCost = " + actualCost);
+                String actualCost = pages.products()
+                                         .detailsGenInfCost.getText()
+                                         .trim().substring(1).trim();
                 String expectedCost = product.get("cost").trim();
-//                System.out.println("expectedCost = " + expectedCost);
                 Assert.assertEquals(Double.parseDouble(expectedCost), Double.parseDouble(actualCost), 0.01);
 
-                String actualProductType = Pages.products().detailsProductTypeLabel.getText().trim().toLowerCase();
-//                System.out.println("actualProductType = " + actualProductType);
+                String actualProductType = pages.products()
+                                                .detailsProductTypeLabel.getText()
+                                                .trim().toLowerCase();
                 String expectedProductType = product.get("product_type").trim().toLowerCase();
-//                System.out.println("expectedProductType = " + expectedProductType);
-
                 Assert.assertEquals(expectedProductType, actualProductType);
-
 
                 return ;
             }
@@ -256,53 +238,37 @@ public class ProductsPageStepDefinitions {
         }
 
         Assert.fail(productName + " was not found in the test data");
-        System.out.println("page should display details for the product Completed");
+        System.out.println("User checks the  details for the products from the excel file");
     }
 
 
     @Then("user should be able to see the following products in the listing:")
     public void user_should_be_able_to_see_the_following_products_in_the_listing(List<String> products) {
-        System.out.println("products = " + products);
-        List<String> productsList  = BrowserUtils.getElementsText(Pages.products().products);
+        List<String> productsList  = BrowserUtils.getElementsText(pages.products().products);
 
         for (String each : products){
             if ( ! productsList.toString().contains(each) )
                 Assert.fail( each + " is not available in the products");
         }
 
+        System.out.println("User checks the products in the listing");
     }
 
     @Then("user should see the product information")
     public void user_should_see_the_product_information(Map<String, String> productInfo) {
-        System.out.println("Checking the product info");
-//        System.out.println("productInfo = " + productInfo);
-
         String expectedType = productInfo.get("type").toLowerCase();
-//        System.out.println("expectedType = " + expectedType);
-
-
         String expectedPrice = productInfo.get("price");
-//        System.out.println("expectedPrice = " + expectedPrice);
-
         String expectedCost = productInfo.get("cost");
-//        System.out.println("expectedCost = " + expectedCost);
 
-
-
-//        WebElement product = Pages.products().selectProduct(productName);
-//        product.click();
-
-        String actualType = Pages.products().detailsProductTypeLabel.getText().toLowerCase();
-//        System.out.println("actualType = " + actualType);
-        String actualPrice = Pages.products().detailsGenInfSalesPrice.getText().trim().substring(1).trim();
-//        System.out.println("actualPrice = " + actualPrice);
-        String actualCost = Pages.products().detailsGenInfCost.getText().trim().substring(1).trim();
-//        System.out.println("actualCost = " + actualCost);
+        String actualType = pages.products().detailsProductTypeLabel.getText().toLowerCase();
+        String actualPrice = pages.products().detailsGenInfSalesPrice.getText().trim().substring(1).trim();
+        String actualCost = pages.products().detailsGenInfCost.getText().trim().substring(1).trim();
 
         Assert.assertEquals(expectedType, actualType);
         Assert.assertEquals(Double.parseDouble(expectedPrice), Double.parseDouble(actualPrice), 0.001);
         Assert.assertEquals(Double.parseDouble(expectedCost), Double.parseDouble(actualCost), 0.001);
 
+        System.out.println("User Checks the product info");
     }
 
 
