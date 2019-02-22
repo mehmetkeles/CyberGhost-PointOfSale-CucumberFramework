@@ -32,6 +32,9 @@ public class ProductsPage extends BasePage {
     @FindBy(xpath = "//div[@class='oe_title']//span[@name='name']")
     public WebElement detailsProductNameLabel;
 
+    @FindBy(xpath = "//table[@class='o_group o_inner_group o_group_col_6']//span[@name='type']")
+    public WebElement detailsProductTypeLabel;
+
     @FindBy(xpath = "//div[@class='o_notebook']//span[@name='list_price']")
     public WebElement detailsGenInfSalesPrice;
 
