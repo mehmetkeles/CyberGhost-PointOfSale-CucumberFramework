@@ -7,6 +7,9 @@ import com.briteerp.utilities.ConfigurationReader;
 import com.briteerp.utilities.Driver;
 
 public abstract class BasePage {
+
+
+
     @FindBy(css = "span.oe_topbar_name")
     public WebElement topUsername;
 

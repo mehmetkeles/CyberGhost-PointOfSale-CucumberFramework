@@ -11,6 +11,14 @@ public class SessionsPage extends BasePage {
     @FindBy(name = "user_id")
     public WebElement userIDField;
 
+    @FindBy(xpath = "//li//a//span[contains(text(),'Point of Sale')]")
+    public WebElement pointOfSalelnk;
+
+    @FindBy(xpath = "//div[@class='o_control_panel']//ol/li")
+    public WebElement tabTitle;
+
+
+
 
     public SessionsPage() {
         PageFactory.initElements(Driver.getDriver(), this);
@@ -26,7 +34,6 @@ public class SessionsPage extends BasePage {
 
         return element;
 
-//Comment 3
 
     }
 }
