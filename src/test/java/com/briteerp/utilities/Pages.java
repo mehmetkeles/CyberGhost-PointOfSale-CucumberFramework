@@ -2,6 +2,7 @@ package com.briteerp.utilities;
 
 import com.briteerp.pages.*;
 
+
 public class Pages {
     private HomePage homePage;
     private LoginPage loginPage;

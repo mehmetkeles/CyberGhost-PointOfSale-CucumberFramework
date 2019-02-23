@@ -1,4 +1,4 @@
 package com.briteerp.step_definitions;
 
-public class OrdersPageStepDefinitions {
+public class OrdersPageStepDefinitions extends UiCommon {
 }
