@@ -65,11 +65,13 @@ public class ProductsPageStepDefinitions extends  UiCommon {
     }
 
 
+
     @Then("user clicks on the product")
     public void user_clicks_on_the_product() {
         pages.products().selectProduct(productName).click();
         System.out.println("User clicks on "+ productName );
     }
+
 
     @Then("user should be able to see the picture of the product")
     public void user_should_be_able_to_see_the_picture_of_the_product() {
