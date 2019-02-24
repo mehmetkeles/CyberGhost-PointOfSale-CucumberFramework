@@ -15,11 +15,11 @@ Feature: Products functionality
     When user clicks on orders link
     Then Orders page should be displayed
 
-  //Serkan2- BRIT-760
+  //Serkan  BRIT-760
   Scenario: Verify that Orderlists page title contains Orderlists
   Then user should see the title contains Orderlists
 
-  //
+  ////Serkan BRIT-762
   Scenario: The name of the order is seen on the page
     Given user is on the Point of Sale page
     When user clicks on Products link
