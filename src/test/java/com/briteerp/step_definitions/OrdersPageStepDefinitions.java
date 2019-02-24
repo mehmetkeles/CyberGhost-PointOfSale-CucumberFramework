@@ -8,6 +8,8 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 
+import static javafx.scene.input.KeyCode.O;
+
 public class OrdersPageStepDefinitions extends UiCommon {
 
     private String orderName = null;
@@ -24,7 +26,7 @@ public class OrdersPageStepDefinitions extends UiCommon {
     public void orders_page_should_be_displayed() {
         BrowserUtils.waitUntilTextToBePresentInElement(pages.products().tabTitle,
                 ApplicationConstants.ORDERLISTS_PAGE_HEADER,timeOutInSec);
-        Assert.assertEquals(pages.products().tabTitle.getText().trim(),
+        Assert.assertEquals(pages.orders().tabTitle.getText().trim(),
                 ApplicationConstants.ORDERLISTS_PAGE_HEADER);
         System.out.println("Orders page is displayed");
     }
@@ -36,12 +38,13 @@ public class OrdersPageStepDefinitions extends UiCommon {
         BrowserUtils.wait(5);
         String message = Driver.getDriver().getTitle();
         Assert.assertTrue(message.contains(ApplicationConstants.ORDERLISTS_PAGE_TITLE));
+
     }
 
-    @When("user selects a product")
-    public void user_selects_a_product() {
-        orderName = pages.products().selectAnyOrder();
-        System.out.println("User selects " + orderName);
+    @Then("user clicks on the order")
+    public void user_clicks_on_the_product() {
+        pages.products().selectProduct(orderName).click();
+        System.out.println("User clicks on "+ orderName );
     }
 
 }

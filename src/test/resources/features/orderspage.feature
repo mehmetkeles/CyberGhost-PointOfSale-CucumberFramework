@@ -23,5 +23,5 @@ Feature: Products functionality
   Scenario: The name of the order is seen on the page
     Given user is on the Point of Sale page
     When user clicks on Products link
-    Then user selects a order
+
     And user clicks on the order
