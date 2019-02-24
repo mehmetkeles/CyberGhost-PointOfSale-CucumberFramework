@@ -2,6 +2,7 @@ package com.briteerp.step_definitions;
 
 import com.briteerp.utilities.ApplicationConstants;
 import com.briteerp.utilities.BrowserUtils;
+import com.briteerp.utilities.Driver;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
@@ -30,6 +31,23 @@ public class OrdersPageStepDefinitions extends UiCommon {
 
 
 
+    @Then("user should see the title contains Orderlists")
+    public void user_should_see_the_title_contains_Orderlists() {
+        BrowserUtils.wait(5);
+        String message = Driver.getDriver().getTitle();
+        Assert.assertTrue(message.contains(ApplicationConstants.ORDERLISTS_PAGE_TITLE));
+    }
+
+    @When("user selects a product")
+    public void user_selects_a_product() {
+        orderName = pages.products().selectAnyOrder();
+        System.out.println("User selects " + orderName);
+    }
 
 }
+
+
+
+
+
 

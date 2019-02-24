@@ -14,3 +14,14 @@ Feature: Products functionality
     Given user is on the Point of Sale page
     When user clicks on orders link
     Then Orders page should be displayed
+
+  //Serkan2- BRIT-760
+  Scenario: Verify that Orderlists page title contains Orderlists
+  Then user should see the title contains Orderlists
+
+  //
+  Scenario: The name of the order is seen on the page
+    Given user is on the Point of Sale page
+    When user clicks on Products link
+    Then user selects a order
+    And user clicks on the order
