@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 
 import static javafx.scene.input.KeyCode.O;
-
 public class OrdersPageStepDefinitions extends UiCommon {
 
     private String orderName = null;
@@ -42,7 +41,7 @@ public class OrdersPageStepDefinitions extends UiCommon {
     }
 
     @Then("user clicks on the order")
-    public void user_clicks_on_the_product() {
+    public void user_clicks_on_the_order() {
         pages.products().selectProduct(orderName).click();
         System.out.println("User clicks on "+ orderName );
     }
