@@ -11,7 +11,7 @@ public class LoginPageStepDefinitions extends UiCommon{
     @Given("user is already on the login page")
     public void user_is_already_on_the_login_page() {
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
-        pages.home().briteErpDemoLink.click();
+        pages.login().sign.click();
         System.out.println("User is on the login page");
     }
 
