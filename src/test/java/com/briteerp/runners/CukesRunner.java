@@ -14,8 +14,8 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         glue = "com/briteerp/step_definitions",
 //       dryRun = true,
-        tags = {"@pricelist"}
- //       tags = {"@w"}
+    //    tags = "@pricelist"
+        tags = {"@w"}
 )
 public class CukesRunner {
 }

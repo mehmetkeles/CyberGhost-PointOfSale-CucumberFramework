@@ -136,4 +136,20 @@ public class PricelistPageStepDefinitions extends UiCommon{
         Assert.assertEquals(message, (ApplicationConstants.LOCALHOST_PAGE_TWITTER));
     }
 
+    @When("user types {string} into search box and hits ENTER")
+    public void user_types_into_search_box_and_hits_ENTER(String pricelist_name) {
+        pages.pricelist().searchInput.sendKeys(pricelist_name + Keys.ENTER);
+        System.out.println(pricelist_name);
+    }
+
+    @Then("user should not be able to see the name of the product on the page")
+    public void user_should_not_be_able_to_see_the_name_of_the_product_on_the_page() {
+        BrowserUtils.wait(5);
+        String paragraph=pages.pricelist().text.getText();
+        String actualParagraph="A price list contains rules to be evaluated in order to " +
+                "compute the sale price of the products.";
+        System.out.println(paragraph);
+        Assert.assertEquals(actualParagraph,paragraph);
+    }
+
 }
