@@ -33,6 +33,9 @@ public class PricelistPage extends BasePage {
     @FindBy(xpath = "(//a[contains(@id,'o_field_input')])[2]")
     public WebElement localhostLink;
 
+    @FindBy(xpath = "//div/p[2]")
+    public WebElement text;
+
     public PricelistPage() {
         PageFactory.initElements(Driver.getDriver(), this);
     }

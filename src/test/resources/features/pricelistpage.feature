@@ -58,6 +58,19 @@ Feature: As a POSUser4, I want to go to Pricelists page so that I can use the fu
     When user clicks on Website localhost link
     Then user should be able to see that Twitter Account is correct.
 
+  @w
+  Scenario Outline: Verify that pricelist name exist or not.
+    When user types "<pricelist_name>" into search box and hits ENTER
+    Then user should not be able to see the name of the product on the page
+
+    Examples:
+      | pricelist_name |
+      | apple          |
+      | orange         |
+      | lemon          |
+      | cherry         |
+      | peach          |
+
 
 
 
