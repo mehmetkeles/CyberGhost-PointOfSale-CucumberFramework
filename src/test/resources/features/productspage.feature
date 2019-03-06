@@ -124,4 +124,23 @@ Feature: Products functionality
     And user can change the sales price and clicks the save button
     Then user should be able to see the update sales price
 
+  @db
+  Scenario: Verify the sales price of a product from the database
+    Given user is on the Point of Sale page
+    When user clicks on Products link
+    And user selects a product and remembers its price
+    Then user verifies the price
 
+
+  @db
+  Scenario Outline: Verify the sales price of a product from the database
+    Given user is on the Point of Sale page
+    When user clicks on Products link
+    Then user click on "<product_name>" and remembers its price
+    Then user verifies the price
+
+    Examples:
+      | product_name          |
+      | Boni Oranges          |
+      | Conference pears      |
+      | Carrots               |

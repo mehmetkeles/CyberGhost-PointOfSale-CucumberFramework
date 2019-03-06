@@ -1,14 +1,11 @@
 package com.briteerp.step_definitions;
 
-import com.briteerp.utilities.BrowserUtils;
-import com.briteerp.utilities.ConfigurationReader;
-import com.briteerp.utilities.Pages;
+import com.briteerp.utilities.*;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import com.briteerp.utilities.Driver;
 
 import java.util.concurrent.TimeUnit;
 
@@ -33,9 +30,20 @@ public class Hooks extends UiCommon{
         Driver.closeDriver();
     }
 
-    @Before(value = "@teacher", order = 11)
-    public void setUpTeacher() {
-        System.out.println("Set up teacher test");
+    @Before(value = "@db")
+    public void setUpDbConnection() {
+        DatabaseUtility.createConnection(ConfigurationReader.getProperty("db.url"),
+                                         ConfigurationReader.getProperty("db.username"),
+                                         ConfigurationReader.getProperty("db.password") );
+
+        System.out.println("Database connection was set up");
+    }
+
+    @After(value = "@db")
+    public void closeDbConnection(){
+        DatabaseUtility.closeConnection();
+        System.out.println("Database Connection closed");
+
     }
 
 }

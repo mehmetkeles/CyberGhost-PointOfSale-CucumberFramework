@@ -9,6 +9,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.sql.SQLOutput;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -85,6 +86,14 @@ public class ProductsPageStepDefinitions extends  UiCommon {
         salesPrice = pages.products().getPrice(productName);
         System.out.println("User selects a product and its price: " + productName + salesPrice );
     }
+
+    @Then("user click on {string} and remembers its price")
+    public void user_click_on_and_remembers_its_price(String productName) {
+        this.productName = productName;
+        salesPrice = pages.products().getPrice(productName);
+        System.out.println("Product and its price: " + productName + salesPrice );
+    }
+
 
     @Then("user should be able to see the same price")
     public void user_should_be_able_to_see_the_same_price() {
@@ -271,5 +280,18 @@ public class ProductsPageStepDefinitions extends  UiCommon {
         System.out.println("User Checks the product info");
     }
 
+
+    @Then("user verifies the price")
+    public void user_verifies_the_price() {
+        String query = "SELECT pt.list_price FROM product_template pt " +
+                "JOIN product_price_history pp " +
+                "ON pp.id = pt.id and pt.name='" + productName + "'";
+
+//        System.out.println(DatabaseUtility.getCellValue(query).toString());
+        String expectedSalesPrice = DatabaseUtility.getCellValue(query).toString();
+        System.out.println("expectedSalesPrice = " + expectedSalesPrice);
+
+        Assert.assertEquals(expectedSalesPrice, salesPrice.substring(1).trim());
+    }
 
 }
