@@ -13,6 +13,7 @@ public class LoginPageStepDefinitions extends UiCommon{
         Driver.getDriver().get(ConfigurationReader.getProperty("url"));
 //        pages.home().briteErpDemoLink.click();
         pages.home().signInBtn.click();
+//        pages.login().sign.click();
         System.out.println("User is on the login page");
     }
 

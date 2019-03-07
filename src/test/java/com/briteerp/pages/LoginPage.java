@@ -6,6 +6,10 @@ import org.openqa.selenium.support.PageFactory;
 import com.briteerp.utilities.Driver;
 
 public class LoginPage extends BasePage {
+
+    @FindBy(linkText = "Sign in")
+    public WebElement sign;
+
     @FindBy(id = "login")
     public WebElement email;
 
