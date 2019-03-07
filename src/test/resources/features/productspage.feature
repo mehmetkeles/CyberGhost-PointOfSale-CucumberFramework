@@ -144,3 +144,10 @@ Feature: Products functionality
       | Boni Oranges          |
       | Conference pears      |
       | Carrots               |
+
+    @db
+    Scenario: Verify the number of products which are for sale
+      Given user is on the Point of Sale page
+      When user clicks on Products link
+      And user remembers the number of products available
+      Then users verifies the number from the database

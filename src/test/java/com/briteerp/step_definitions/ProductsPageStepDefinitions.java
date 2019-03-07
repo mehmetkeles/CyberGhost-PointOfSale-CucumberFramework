@@ -20,7 +20,9 @@ public class ProductsPageStepDefinitions extends  UiCommon {
 
     private String productName = null,
                    salesPrice = null,
-                   noteToAdd = null;
+                   noteToAdd = null,
+                   numberOfProductsForSale = null;
+
 
 
     @When("user clicks on Products link")
@@ -284,14 +286,33 @@ public class ProductsPageStepDefinitions extends  UiCommon {
     @Then("user verifies the price")
     public void user_verifies_the_price() {
         String query = "SELECT pt.list_price FROM product_template pt " +
-                "JOIN product_price_history pp " +
-                "ON pp.id = pt.id and pt.name='" + productName + "'";
+                       "JOIN product_price_history pp " +
+                       "ON pp.id = pt.id and pt.name='" + productName + "'";
 
-//        System.out.println(DatabaseUtility.getCellValue(query).toString());
         String expectedSalesPrice = DatabaseUtility.getCellValue(query).toString();
         System.out.println("expectedSalesPrice = " + expectedSalesPrice);
 
         Assert.assertEquals(expectedSalesPrice, salesPrice.substring(1).trim());
     }
+
+
+    @When("user remembers the number of products available")
+    public void user_remembers_the_number_of_products_available() {
+        numberOfProductsForSale = pages.products().numberOfProductsForSale.getText().trim();
+        System.out.println("numberOfProductsForSale = " + numberOfProductsForSale);
+    }
+
+    @Then("users verifies the number from the database")
+    public void users_verifies_the_number_from_the_database() {
+        String query =  "SELECT COUNT(*) FROM product_template pt " +
+                        "JOIN product_price_history pp ON pp.id = pt.id and pt.sale_ok='true' ";
+
+        String expectedNumberOfProductsForSale = DatabaseUtility.getCellValue(query).toString().trim();
+
+        System.out.println("expectedNumberOfProductsForSale = " + expectedNumberOfProductsForSale);
+
+        Assert.assertEquals(expectedNumberOfProductsForSale, numberOfProductsForSale);
+    }
+
 
 }

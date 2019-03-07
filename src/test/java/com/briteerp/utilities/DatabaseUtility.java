@@ -15,10 +15,10 @@ public class DatabaseUtility {
 
 
     public static void createConnection() {
-        String url = "jdbc:postgresql://room-reservation-qa.cxvqfpt4mc2y.us-east-1.rds.amazonaws.com:5432/room_reservation_qa";
-        String user = "qa_user";
-        String password = "Cybertek11!";
-
+//        Please fill out the following credentials before use
+        String url = null;  // jdbc:postgresql://url:portNumber/dbName";
+        String user = null;
+        String password = null;
 
         try {
             connection = DriverManager.getConnection(url, user, password);
@@ -30,12 +30,6 @@ public class DatabaseUtility {
     }
 
     public static void createConnection(String url, String user, String password) {
-//        url = "jdbc:postgresql://" + url + ":5432/BriteErpDemo";
-//        String url = "jdbc:postgresql://room-reservation-qa.cxvqfpt4mc2y.us-east-1.rds.amazonaws.com:5432/room_reservation_qa";
-//        String user = "qa_user";
-//        String password = "Cybertek11!";
-
-
         try {
             connection = DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
