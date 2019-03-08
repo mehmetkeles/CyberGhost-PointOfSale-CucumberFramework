@@ -294,7 +294,8 @@ public class ProductsPageStepDefinitions extends  UiCommon {
         String expectedSalesPrice = DatabaseUtility.getCellValue(query).toString();
         System.out.println("expectedSalesPrice = " + expectedSalesPrice);
 
-        Assert.assertEquals(expectedSalesPrice, salesPrice.substring(1).trim());
+        Assert.assertEquals(expectedSalesPrice, salesPrice.substring(1).replace(",", "").trim());
+
     }
 
 
