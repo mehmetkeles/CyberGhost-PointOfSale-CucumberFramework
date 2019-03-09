@@ -11,7 +11,7 @@ Feature: Products functionality
 #  Background:
 #    Given user is on the Point of Sale page
 
-  @wip
+  @smoke
   Scenario: valid ProductsPage Title
     Given user is on the Point of Sale page
     When user clicks on Products link
@@ -30,6 +30,7 @@ Feature: Products functionality
     Then user clicks on the product
     Then user should be able to see the picture of the product
 
+  @smoke
   Scenario: Verify the sales price of a product.
     Given user is on the Point of Sale page
     When user clicks on Products link
@@ -71,7 +72,7 @@ Feature: Products functionality
     And user clicks on the product
     Then user should be able to see the name of the product on the page
 
-
+  @smoke
   Scenario Outline:  product information data driven test with excel <product_name>
     Given user is on the Point of Sale page
     When user clicks on Products link
@@ -96,7 +97,7 @@ Feature: Products functionality
       | iphone 8 |
       | Airpods  |
 
-
+  @smoke
   Scenario Outline: Product information data drivem test <product_name>
     Given user is on the Point of Sale page
     When user clicks on Products link
@@ -124,4 +125,30 @@ Feature: Products functionality
     And user can change the sales price and clicks the save button
     Then user should be able to see the update sales price
 
+  @db @smoke
+  Scenario: Verify the sales price of a product from the database (if it is checked for sale in db)
+    Given user is on the Point of Sale page
+    When user clicks on Products link
+    And user selects a product and remembers its price
+    Then user verifies the price
 
+
+  @db
+  Scenario Outline: Verify the sales price of a product from the database
+    Given user is on the Point of Sale page
+    When user clicks on Products link
+    Then user click on "<product_name>" and remembers its price
+    Then user verifies the price
+
+    Examples:
+      | product_name          |
+      | Boni Oranges          |
+      | Conference pears      |
+      | Carrots               |
+
+    @db
+    Scenario: Verify the number of products which are for sale
+      Given user is on the Point of Sale page
+      When user clicks on Products link
+      And user remembers the number of products available
+      Then users verifies the number from the database

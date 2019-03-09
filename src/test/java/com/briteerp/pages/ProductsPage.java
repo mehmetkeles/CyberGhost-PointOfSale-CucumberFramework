@@ -14,6 +14,9 @@ public class ProductsPage extends BasePage {
     @FindBy(xpath = "//div[@class='oe_kanban_global_click o_kanban_record']")
     public List<WebElement> products;
 
+    @FindBy(css = "span.o_pager_limit")
+    public WebElement numberOfProductsForSale;
+
     @FindBy(xpath = "//ol[@class='breadcrumb']//li[@class='active']")
     public WebElement detailsProductNameAtTheTop;
 
